@@ -283,16 +283,16 @@ function generateCardTemplate(user: GitHubUser, theme: keyof typeof themes, widt
 }
 
 // Initialize resvg WASM (cached)
-let resvgWasm: any = null;
+let isResvgInitialized = false;
 
 async function initResvg() {
-  if (!resvgWasm) {
+  if (!isResvgInitialized) {
     const wasmResponse = await fetch(
       'https://unpkg.com/@resvg/resvg-wasm@2.6.2/index_bg.wasm'
     );
     const wasmBuffer = await wasmResponse.arrayBuffer();
     await (Resvg as any).initWasm(wasmBuffer);
-    resvgWasm = true;
+    isResvgInitialized = true;
   }
 }
 
