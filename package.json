@@ -1,0 +1,34 @@
+{
+  "name": "github-card",
+  "version": "1.0.0",
+  "description": "js service that outputs your github card as an image",
+  "main": "src/index.ts",
+  "scripts": {
+    "dev": "wrangler dev",
+    "deploy": "wrangler deploy",
+    "build": "tsc",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Arkaikus/github-card.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Arkaikus/github-card/issues"
+  },
+  "homepage": "https://github.com/Arkaikus/github-card#readme",
+  "dependencies": {
+    "@resvg/resvg-wasm": "^2.6.2",
+    "hono": "^4.11.9",
+    "satori": "^0.19.2"
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "^4.20260213.0",
+    "@types/node": "^25.2.3",
+    "typescript": "^5.9.3",
+    "wrangler": "^4.65.0"
+  }
+}
