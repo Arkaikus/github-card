@@ -296,72 +296,9 @@ async function initResvg() {
   }
 }
 
-// Main route: Generate GitHub card
-app.get('/:username', async (c) => {
-  const username = c.req.param('username');
-  const width = parseInt(c.req.query('width') || '600');
-  const height = parseInt(c.req.query('height') || '400');
-  const theme = (c.req.query('theme') || 'default') as keyof typeof themes;
-
-  // Validate parameters
-  if (!username || username === 'doc') {
-    return c.text('Username is required', 400);
-  }
-
-  if (width < 200 || width > 2000 || height < 200 || height > 2000) {
-    return c.text('Width and height must be between 200 and 2000', 400);
-  }
-
-  // Fetch user data
-  const user = await fetchGitHubUser(username);
-  if (!user) {
-    return c.text('User not found', 404);
-  }
-
-  try {
-    // Load font
-    const fontData = await loadFont();
-
-    // Generate SVG using Satori
-    const template = generateCardTemplate(user, theme, width, height);
-    const svg = await satori(template, {
-      width,
-      height,
-      fonts: [
-        {
-          name: 'Inter',
-          data: fontData,
-          weight: 400,
-          style: 'normal',
-        },
-      ],
-    });
-
-    // Initialize resvg
-    await initResvg();
-
-    // Convert SVG to PNG using Resvg
-    const resvg = new Resvg(svg, {
-      fitTo: {
-        mode: 'width',
-        value: width,
-      },
-    });
-
-    const pngData = resvg.render();
-    const pngBuffer = pngData.asPng();
-
-    // Return PNG image
-    return new Response(pngBuffer, {
-      headers: {
-        'Content-Type': 'image/png',
-        'Cache-Control': 'public, max-age=3600',
-      },
-    });
-  } catch (error) {
-    console.error('Error generating card:', error);
-    return c.text('Error generating card', 500);
-  }
+// Root route
+app.get('/', (c) => {
+  return c.redirect('/doc');
 });
 
 // Documentation route
@@ -595,9 +532,72 @@ app.get('/doc', (c) => {
   return c.html(html);
 });
 
-// Root route
-app.get('/', (c) => {
-  return c.redirect('/doc');
+// Main route: Generate GitHub card
+app.get('/:username', async (c) => {
+  const username = c.req.param('username');
+  const width = parseInt(c.req.query('width') || '600');
+  const height = parseInt(c.req.query('height') || '400');
+  const theme = (c.req.query('theme') || 'default') as keyof typeof themes;
+
+  // Validate parameters
+  if (!username) {
+    return c.text('Username is required', 400);
+  }
+
+  if (width < 200 || width > 2000 || height < 200 || height > 2000) {
+    return c.text('Width and height must be between 200 and 2000', 400);
+  }
+
+  // Fetch user data
+  const user = await fetchGitHubUser(username);
+  if (!user) {
+    return c.text('User not found', 404);
+  }
+
+  try {
+    // Load font
+    const fontData = await loadFont();
+
+    // Generate SVG using Satori
+    const template = generateCardTemplate(user, theme, width, height);
+    const svg = await satori(template, {
+      width,
+      height,
+      fonts: [
+        {
+          name: 'Inter',
+          data: fontData,
+          weight: 400,
+          style: 'normal',
+        },
+      ],
+    });
+
+    // Initialize resvg
+    await initResvg();
+
+    // Convert SVG to PNG using Resvg
+    const resvg = new Resvg(svg, {
+      fitTo: {
+        mode: 'width',
+        value: width,
+      },
+    });
+
+    const pngData = resvg.render();
+    const pngBuffer = pngData.asPng();
+
+    // Return PNG image
+    return new Response(pngBuffer, {
+      headers: {
+        'Content-Type': 'image/png',
+        'Cache-Control': 'public, max-age=3600',
+      },
+    });
+  } catch (error) {
+    console.error('Error generating card:', error);
+    return c.text('Error generating card', 500);
+  }
 });
 
 export default app;
