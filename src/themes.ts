@@ -1,0 +1,31 @@
+export interface Theme {
+  bg: string;
+  text: string;
+  secondary: string;
+  accent: string;
+  border: string;
+}
+
+export const themes: Record<string, Theme> = {
+  "default": {
+    "bg": "#ffffff",
+    "text": "#1f2328",
+    "secondary": "#656d76",
+    "accent": "#0969da",
+    "border": "#d0d7de"
+  },
+  "dark": {
+    "bg": "#0d1117",
+    "text": "#e6edf3",
+    "secondary": "#7d8590",
+    "accent": "#2f81f7",
+    "border": "#30363d"
+  },
+  "ocean": {
+    "bg": "#0c4a6e",
+    "text": "#f0f9ff",
+    "secondary": "#bae6fd",
+    "accent": "#38bdf8",
+    "border": "#075985"
+  }
+};
