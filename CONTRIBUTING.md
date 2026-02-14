@@ -13,20 +13,22 @@ cd github-card
 
 2. **Install Dependencies**
 
+**Note: Use bun instead of npm for better performance**
+
 ```bash
+bun install
+# or if you prefer npm
 npm install
 ```
 
-3. **Build the Project**
+3. **Run Locally**
+
+Wrangler is already installed in the project:
 
 ```bash
-npm run build
-```
-
-4. **Run Locally**
-
-```bash
-npm run dev
+bun run dev
+# or
+wrangler dev
 ```
 
 ## Project Structure
@@ -34,13 +36,29 @@ npm run dev
 ```
 github-card/
 ├── src/
-│   └── index.ts          # Main worker code
-├── package.json          # Dependencies and scripts
-├── tsconfig.json         # TypeScript configuration
-├── wrangler.toml         # Cloudflare Workers config
-├── README.md             # Project documentation
-├── DEPLOYMENT.md         # Deployment guide
-└── CONTRIBUTING.md       # This file
+│   ├── index.ts                  # Entry point (~17 lines)
+│   ├── routes/
+│   │   ├── handlers.ts          # Route handlers
+│   │   └── validation.ts        # Parameter validation
+│   ├── services/
+│   │   ├── github.ts            # GitHub API client
+│   │   └── image-generator.ts   # Image generation
+│   ├── templates/
+│   │   └── card-template.ts     # Card template
+│   ├── utils/
+│   │   ├── fonts.ts             # Font utilities
+│   │   └── emoji.ts             # Emoji utilities
+│   ├── types/
+│   │   └── github.ts            # Type definitions
+│   ├── themes.ts                # Theme definitions
+│   └── doc-template.ts          # Documentation HTML
+├── package.json                 # Dependencies and scripts
+├── tsconfig.json                # TypeScript configuration
+├── wrangler.jsonc               # Cloudflare Workers config
+├── README.md                    # Project documentation
+├── DEPLOYMENT.md                # Deployment guide
+├── DEV.md                       # Development notes
+└── CONTRIBUTING.md              # This file
 ```
 
 ## Code Style
@@ -67,8 +85,9 @@ git checkout -b feature/your-feature-name
 3. **Test Your Changes**
 
 ```bash
-npm run build
-npm run dev
+bun run dev
+# or
+wrangler dev
 ```
 
 Then test the endpoints:
@@ -140,20 +159,21 @@ Currently, manual testing is required. When testing:
 
 ## Build and Deploy
 
-```bash
-# Build TypeScript
-npm run build
+TypeScript compilation is handled automatically by Wrangler.
 
+```bash
 # Deploy to Cloudflare
-npm run deploy
+bun run deploy
+# or
+wrangler deploy
 ```
 
 ## Dependencies
 
 When adding new dependencies:
 
-1. Use `npm install <package>`
-2. Update package.json
+1. Use `bun add <package>` (or `npm install <package>`)
+2. Update package.json (automatic)
 3. Test locally
 4. Document if needed
 
