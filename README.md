@@ -8,6 +8,7 @@ A Cloudflare Worker service that generates beautiful GitHub profile cards as PNG
 - **Multiple Themes**: Choose from default, dark, and ocean themes
 - **Customizable**: Adjust width and height via query parameters
 - **Fast**: Powered by Cloudflare Workers edge computing
+- **Smart Caching**: KV-based caching to avoid GitHub API rate limits
 - **Built with Modern Tech**: Hono, Satori, and Resvg
 
 ## 📦 Installation
@@ -28,11 +29,27 @@ The worker will be available at `http://localhost:8787`
 
 ## 🚢 Deployment
 
+### First-time Setup
+
+Before deploying, create a KV namespace for caching GitHub API responses:
+
+```bash
+# Create production KV namespace
+wrangler kv namespace create "GITHUB_CACHE"
+
+# Update wrangler.jsonc with the returned namespace ID
+# Replace "preview_id" with the actual ID in the kv_namespaces section
+```
+
+### Deploy
+
 Deploy to Cloudflare Workers:
 
 ```bash
 bun run deploy
 ```
+
+The KV cache will automatically store GitHub API responses for 1 hour, preventing rate limiting issues.
 
 ## 📖 Usage
 

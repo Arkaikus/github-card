@@ -1,6 +1,6 @@
 import type { Context } from 'hono';
 import { docHTML } from '../doc-template.js';
-import { fetchGitHubUser } from '../services/github.js';
+import { fetchGitHubUser, fetchGitHubEvents, processCommitData } from '../services/github.js';
 import { generateCardImage } from '../services/image-generator.js';
 import {
   validateUsername,
@@ -39,11 +39,19 @@ export const getUsername = async (c: Context) => {
     return c.text(dimensionsValidation.error!, 400);
   }
 
-  // Fetch user data
-  const user = await fetchGitHubUser(username!);
+  // Fetch user data and events in parallel with KV caching
+  const cache = c.env.GITHUB_CACHE;
+  const [user, events] = await Promise.all([
+    fetchGitHubUser(username!, cache),
+    fetchGitHubEvents(username!, cache),
+  ]);
+
   if (!user) {
     return c.text('User not found', 404);
   }
+
+  // Process commit data
+  const commitData = processCommitData(events);
 
   try {
     // Generate card image
@@ -51,7 +59,8 @@ export const getUsername = async (c: Context) => {
       user,
       queryParams.theme,
       queryParams.width,
-      queryParams.height
+      queryParams.height,
+      commitData
     );
 
     // Return PNG image

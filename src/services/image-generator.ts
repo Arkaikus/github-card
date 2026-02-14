@@ -1,6 +1,6 @@
 import satori from 'satori';
 import { Resvg } from '@cf-wasm/resvg/workerd';
-import type { GitHubUser } from '../types/github.js';
+import type { GitHubUser, CommitData } from '../types/github.js';
 import { themes } from '../themes.js';
 import { generateCardTemplate } from '../templates/card-template.js';
 import { loadFont } from '../utils/fonts.js';
@@ -10,13 +10,14 @@ export async function generateCardImage(
   user: GitHubUser,
   theme: keyof typeof themes,
   width: number,
-  height: number
+  height: number,
+  commitData: CommitData[] = []
 ): Promise<ArrayBuffer> {
   // Load font
   const fontData = await loadFont();
 
   // Generate SVG using Satori
-  const template = generateCardTemplate(user, theme, width, height);
+  const template = generateCardTemplate(user, theme, width, height, commitData);
   const svg = await satori(template, {
     width,
     height,

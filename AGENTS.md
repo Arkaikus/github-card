@@ -54,6 +54,18 @@ src/
 4. **Scalability**: Easy to add new themes, templates, or API integrations
 5. **Clean Entry Point**: `index.ts` is now only ~17 lines (down from 381)
 
+## KV Caching
+
+GitHub API responses are cached using Cloudflare Workers KV to avoid rate limiting:
+
+- **Cache TTL**: 1 hour (3600 seconds)
+- **Cached data**: User profiles and events
+- **Cache keys**: `user:{username}` and `events:{username}`
+- **Local development**: Automatic local KV namespace (preview_id)
+- **Production**: Requires KV namespace creation on Cloudflare dashboard
+
+The cache is automatically used in both local development and production. During local development, wrangler creates a local KV namespace automatically.
+
 ## Quick Commands
 
 ```bash

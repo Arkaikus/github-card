@@ -12,6 +12,16 @@
 	},
 	"compatibility_flags": [
 		"nodejs_compat"
+	],
+	/**
+	 * KV Namespace for caching GitHub API responses
+	 * https://developers.cloudflare.com/kv/
+	 */
+	"kv_namespaces": [
+		{
+			"binding": "GITHUB_CACHE",
+			"id": "b6ca3866c5954a42a149389fa07fc24b"
+		}
 	]
 	/**
 	 * Smart Placement
