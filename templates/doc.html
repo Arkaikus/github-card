@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GitHub Card API - Documentation</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-50 min-h-screen">
+  <div class="container mx-auto px-4 py-8 max-w-4xl">
+    <div class="bg-white rounded-lg shadow-md p-8">
+      <h1 class="text-4xl font-bold text-blue-600 mb-6">🎨 GitHub Card API</h1>
+      <p class="text-gray-600 mb-8">Generate beautiful GitHub profile cards as PNG images using this simple API.</p>
+
+      <section class="mb-8">
+        <h2 class="text-3xl font-semibold text-gray-800 border-b-2 border-gray-200 pb-3 mb-4">📖 Usage</h2>
+        <p class="text-gray-600 mb-4">Make a GET request to generate a card for any GitHub user:</p>
+        <pre class="bg-gray-100 p-4 rounded-md border border-gray-200 overflow-x-auto mb-4"><code class="text-sm">GET /:username</code></pre>
+
+        <h3 class="text-xl font-medium text-gray-700 mt-6 mb-3">Example:</h3>
+        <pre class="bg-gray-100 p-4 rounded-md border border-gray-200 overflow-x-auto"><code class="text-sm">https://your-worker.workers.dev/octocat</code></pre>
+      </section>
+
+      <section class="mb-8">
+        <h2 class="text-3xl font-semibold text-gray-800 border-b-2 border-gray-200 pb-3 mb-4">⚙️ Parameters</h2>
+        <p class="text-gray-600 mb-4">Customize your card with query parameters:</p>
+        <div class="overflow-x-auto">
+          <table class="w-full border-collapse mb-6">
+            <thead>
+              <tr class="bg-gray-100">
+                <th class="text-left p-3 font-semibold text-gray-800 border-b border-gray-200">Parameter</th>
+                <th class="text-left p-3 font-semibold text-gray-800 border-b border-gray-200">Type</th>
+                <th class="text-left p-3 font-semibold text-gray-800 border-b border-gray-200">Default</th>
+                <th class="text-left p-3 font-semibold text-gray-800 border-b border-gray-200">Description</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="p-3 border-b border-gray-200"><code class="bg-gray-100 px-2 py-1 rounded text-sm">width</code></td>
+                <td class="p-3 text-gray-600 border-b border-gray-200">number</td>
+                <td class="p-3 text-gray-600 border-b border-gray-200">600</td>
+                <td class="p-3 text-gray-600 border-b border-gray-200">Card width in pixels (200-2000)</td>
+              </tr>
+              <tr>
+                <td class="p-3 border-b border-gray-200"><code class="bg-gray-100 px-2 py-1 rounded text-sm">height</code></td>
+                <td class="p-3 text-gray-600 border-b border-gray-200">number</td>
+                <td class="p-3 text-gray-600 border-b border-gray-200">400</td>
+                <td class="p-3 text-gray-600 border-b border-gray-200">Card height in pixels (200-2000)</td>
+              </tr>
+              <tr>
+                <td class="p-3 border-b border-gray-200"><code class="bg-gray-100 px-2 py-1 rounded text-sm">theme</code></td>
+                <td class="p-3 text-gray-600 border-b border-gray-200">string</td>
+                <td class="p-3 text-gray-600 border-b border-gray-200">default</td>
+                <td class="p-3 text-gray-600 border-b border-gray-200">Color theme: <code class="bg-gray-100 px-2 py-1 rounded text-sm">default</code>, <code class="bg-gray-100 px-2 py-1 rounded text-sm">dark</code>, or <code class="bg-gray-100 px-2 py-1 rounded text-sm">ocean</code></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="mb-8">
+        <h2 class="text-3xl font-semibold text-gray-800 border-b-2 border-gray-200 pb-3 mb-4">🎨 Themes</h2>
+        <p class="text-gray-600 mb-4">Choose from three built-in themes:</p>
+        <ul class="list-disc list-inside space-y-2 text-gray-600 ml-4">
+          <li><strong class="font-semibold text-gray-800">default</strong> - Clean light theme</li>
+          <li><strong class="font-semibold text-gray-800">dark</strong> - Dark mode theme</li>
+          <li><strong class="font-semibold text-gray-800">ocean</strong> - Blue ocean theme</li>
+        </ul>
+      </section>
+
+      <section class="mb-8">
+        <h2 class="text-3xl font-semibold text-gray-800 border-b-2 border-gray-200 pb-3 mb-4">💡 Examples</h2>
+        
+        <div class="bg-gray-50 border-l-4 border-blue-600 p-5 rounded-md mb-6">
+          <h3 class="text-xl font-medium text-gray-700 mb-3">Default Theme</h3>
+          <pre class="bg-white p-4 rounded-md border border-gray-200 overflow-x-auto mb-3"><code class="text-sm">https://your-worker.workers.dev/octocat</code></pre>
+          <p class="text-gray-600">Generates a default light-themed card.</p>
+        </div>
+
+        <div class="bg-gray-50 border-l-4 border-blue-600 p-5 rounded-md mb-6">
+          <h3 class="text-xl font-medium text-gray-700 mb-3">Dark Theme with Custom Size</h3>
+          <pre class="bg-white p-4 rounded-md border border-gray-200 overflow-x-auto mb-3"><code class="text-sm">https://your-worker.workers.dev/octocat?theme=dark&width=800&height=500</code></pre>
+          <p class="text-gray-600">Generates a dark-themed card with custom dimensions.</p>
+        </div>
+
+        <div class="bg-gray-50 border-l-4 border-blue-600 p-5 rounded-md mb-6">
+          <h3 class="text-xl font-medium text-gray-700 mb-3">Ocean Theme</h3>
+          <pre class="bg-white p-4 rounded-md border border-gray-200 overflow-x-auto mb-3"><code class="text-sm">https://your-worker.workers.dev/octocat?theme=ocean</code></pre>
+          <p class="text-gray-600">Generates an ocean-themed card.</p>
+        </div>
+      </section>
+
+      <section class="mb-8">
+        <h2 class="text-3xl font-semibold text-gray-800 border-b-2 border-gray-200 pb-3 mb-4">🔗 Use in Markdown</h2>
+        <p class="text-gray-600 mb-4">Embed your card in README files:</p>
+        <pre class="bg-gray-100 p-4 rounded-md border border-gray-200 overflow-x-auto"><code class="text-sm">![GitHub Card](https://your-worker.workers.dev/octocat?theme=dark)</code></pre>
+      </section>
+
+      <section class="mb-8">
+        <h2 class="text-3xl font-semibold text-gray-800 border-b-2 border-gray-200 pb-3 mb-4">📝 Response</h2>
+        <p class="text-gray-600 mb-4">The API returns a PNG image with:</p>
+        <ul class="list-disc list-inside space-y-2 text-gray-600 ml-4">
+          <li>Content-Type: <code class="bg-gray-100 px-2 py-1 rounded text-sm">image/png</code></li>
+          <li>Cache-Control: <code class="bg-gray-100 px-2 py-1 rounded text-sm">public, max-age=3600</code> (1 hour cache)</li>
+        </ul>
+      </section>
+
+      <section class="mb-8">
+        <h2 class="text-3xl font-semibold text-gray-800 border-b-2 border-gray-200 pb-3 mb-4">❌ Error Responses</h2>
+        <ul class="list-disc list-inside space-y-2 text-gray-600 ml-4">
+          <li><strong class="font-semibold text-gray-800">400 Bad Request</strong> - Invalid parameters</li>
+          <li><strong class="font-semibold text-gray-800">404 Not Found</strong> - GitHub user not found</li>
+          <li><strong class="font-semibold text-gray-800">500 Internal Server Error</strong> - Error generating card</li>
+        </ul>
+      </section>
+
+      <section class="mb-8">
+        <h2 class="text-3xl font-semibold text-gray-800 border-b-2 border-gray-200 pb-3 mb-4">📌 Card Information</h2>
+        <p class="text-gray-600 mb-4">Each card displays:</p>
+        <ul class="list-disc list-inside space-y-2 text-gray-600 ml-4">
+          <li>User avatar</li>
+          <li>Name and username</li>
+          <li>Bio (if available)</li>
+          <li>Number of public repositories</li>
+          <li>Follower count</li>
+          <li>Following count</li>
+        </ul>
+      </section>
+
+      <section class="mb-8">
+        <h2 class="text-3xl font-semibold text-gray-800 border-b-2 border-gray-200 pb-3 mb-4">🚀 Powered By</h2>
+        <ul class="list-disc list-inside space-y-2 text-gray-600 ml-4">
+          <li><strong class="font-semibold text-gray-800">Cloudflare Workers</strong> - Edge computing platform</li>
+          <li><strong class="font-semibold text-gray-800">Hono</strong> - Fast web framework</li>
+          <li><strong class="font-semibold text-gray-800">Satori</strong> - HTML/CSS to SVG conversion</li>
+          <li><strong class="font-semibold text-gray-800">Resvg</strong> - SVG to PNG rendering</li>
+        </ul>
+      </section>
+    </div>
+  </div>
+</body>
+</html>
