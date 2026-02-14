@@ -13,12 +13,12 @@ cd github-card
 
 2. **Install Dependencies**
 
-**Note: Use bun instead of npm for better performance**
+**Note: Use bun instead of bun for better performance**
 
 ```bash
 bun install
-# or if you prefer npm
-npm install
+# or if you prefer bun
+bun install
 ```
 
 3. **Run Locally**
@@ -172,7 +172,7 @@ wrangler deploy
 
 When adding new dependencies:
 
-1. Use `bun add <package>` (or `npm install <package>`)
+1. Use `bun add <package>` (or `bun install <package>`)
 2. Update package.json (automatic)
 3. Test locally
 4. Document if needed

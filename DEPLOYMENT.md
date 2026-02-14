@@ -4,8 +4,8 @@ This guide explains how to deploy the GitHub Card worker to Cloudflare Workers.
 
 ## Prerequisites
 
-- Node.js (v18 or later)
-- npm or yarn
+- Node.js (v25 or later)
+- bun
 - A Cloudflare account (free tier is sufficient)
 
 ## Setup
@@ -13,29 +13,23 @@ This guide explains how to deploy the GitHub Card worker to Cloudflare Workers.
 ### 1. Install Dependencies
 
 ```bash
-npm install
+bun install
 ```
 
 ### 2. Login to Cloudflare
 
 ```bash
-npx wrangler login
+wrangler login
 ```
 
 This will open a browser window to authenticate with your Cloudflare account.
-
-### 3. Build the Project
-
-```bash
-npm run build
-```
 
 ## Local Development
 
 To test the worker locally:
 
 ```bash
-npm run dev
+bun run dev
 ```
 
 The worker will be available at `http://localhost:8787`
@@ -52,13 +46,13 @@ The worker will be available at `http://localhost:8787`
 ### Deploy
 
 ```bash
-npm run deploy
+bun run deploy
 ```
 
 Or using wrangler directly:
 
 ```bash
-npx wrangler deploy
+wrangler deploy
 ```
 
 ### First Deployment
@@ -71,7 +65,7 @@ On your first deployment, Wrangler will:
 
 ### Subsequent Deployments
 
-Just run `npm run deploy` again to update the worker with your latest changes.
+Just run `bun run deploy` again to update the worker with your latest changes.
 
 ## Configuration
 
@@ -89,24 +83,10 @@ To use a custom domain:
 
 If you need to add environment variables (e.g., GitHub token for higher rate limits):
 
-1. Edit `wrangler.toml`:
-
-```toml
-name = "github-card"
-main = "src/index.ts"
-compatibility_date = "2024-01-01"
-
-[vars]
-GITHUB_TOKEN = ""  # Add token via wrangler secret put GITHUB_TOKEN
-
-[observability]
-enabled = true
-```
-
 2. Set secrets securely:
 
 ```bash
-npx wrangler secret put GITHUB_TOKEN
+ wrangler secret put GITHUB_TOKEN
 ```
 
 Then update the code to use the token:
@@ -125,7 +105,7 @@ const response = await fetch(`https://api.github.com/users/${username}`, {
 ### View Logs
 
 ```bash
-npx wrangler tail
+wrangler tail
 ```
 
 This will stream real-time logs from your deployed worker.
@@ -141,21 +121,11 @@ This will stream real-time logs from your deployed worker.
 
 ## Troubleshooting
 
-### Build Errors
-
-If you encounter TypeScript errors:
-
-```bash
-rm -rf dist node_modules
-npm install
-npm run build
-```
-
 ### Deployment Errors
 
 If deployment fails:
 
-1. Ensure you're logged in: `npx wrangler whoami`
+1. Ensure you're logged in: ` wrangler whoami`
 2. Check your account limits (free tier has limits)
 3. Verify your `wrangler.toml` is correct
 
@@ -164,7 +134,7 @@ If deployment fails:
 Check the logs:
 
 ```bash
-npx wrangler tail
+wrangler tail
 ```
 
 ## Performance Optimization
@@ -208,7 +178,7 @@ This should be sufficient for most use cases. If you exceed these limits, Worker
 
 For issues:
 
-1. Check the logs: `npx wrangler tail`
+1. Check the logs: ` wrangler tail`
 2. Review Cloudflare Workers documentation: https://developers.cloudflare.com/workers/
 3. Open an issue on the GitHub repository
 
@@ -218,7 +188,6 @@ To update your deployed worker:
 
 ```bash
 git pull
-npm install  # if dependencies changed
-npm run build
-npm run deploy
+bun install  # if dependencies changed
+bun run deploy
 ```

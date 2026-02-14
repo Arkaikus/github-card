@@ -13,7 +13,7 @@ A Cloudflare Worker service that generates beautiful GitHub profile cards as PNG
 ## 📦 Installation
 
 ```bash
-npm install
+bun install
 ```
 
 ## 🛠️ Development
@@ -21,7 +21,7 @@ npm install
 Start the development server locally:
 
 ```bash
-npm run dev
+bun run dev
 ```
 
 The worker will be available at `http://localhost:8787`
@@ -31,7 +31,7 @@ The worker will be available at `http://localhost:8787`
 Deploy to Cloudflare Workers:
 
 ```bash
-npm run deploy
+bun run deploy
 ```
 
 ## 📖 Usage
