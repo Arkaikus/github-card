@@ -102,6 +102,10 @@ https://your-worker.workers.dev/doc
 - **dark**: Dark mode theme
 - **ocean**: Blue ocean theme
 
+## Preview
+
+![GitHub Card](https://github-card.arkaikus.workers.dev/arkaikus?theme=dark)
+
 ## 🏗️ Built With
 
 - [Cloudflare Workers](https://workers.cloudflare.com/) - Edge computing platform
