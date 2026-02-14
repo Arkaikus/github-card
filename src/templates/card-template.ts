@@ -130,7 +130,7 @@ export function generateCardTemplate(
                     display: 'flex',
                     flexDirection: 'column',
                     gap: '0.5rem',
-                    // flex: '0 0 auto',
+                    flex: '0 0 auto',
                   },
                   children: [
                     user.location && {
@@ -169,8 +169,8 @@ export function generateCardTemplate(
                   style: {
                     display: 'flex',
                     flexDirection: 'row',
-                    gap: '3px',
-                    width: '100%',
+                    gap: '6px',
+                    flex: '0 0 auto',
                   },
                   children: Array.from({ length: 12 }, (_, weekIndex) => ({
                     type: 'div',
